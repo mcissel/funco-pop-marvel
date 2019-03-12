@@ -10,6 +10,8 @@ import Home from './components/Home';
 import AuctionPage from './components/AuctionPage';
 import './App.css';
 
+require('dotenv').config();
+
 const history = createBrowserHistory();
 const store = createStore(rootReducer);
 
