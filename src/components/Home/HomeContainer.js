@@ -1,5 +1,6 @@
 import React from 'react'
 
+import HomeView from './HomeView'
 
 class Home extends React.Component {
   constructor(props) {
@@ -17,9 +18,7 @@ class Home extends React.Component {
   render() {
     const {} = this.props
     return (
-      <div className="home">
-        This is the home page
-      </div>
+      <HomeView />
     )
   }
 }

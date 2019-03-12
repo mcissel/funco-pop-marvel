@@ -16,7 +16,6 @@ const store = createStore(rootReducer);
 class App extends Component {
   render() {
     return (
-
       <Provider store={store}>
         <Router history={history}>
           <Switch>
