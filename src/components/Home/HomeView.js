@@ -8,7 +8,7 @@ const HomeView = ({ featured, additional }) => (
   <div className="home">
     <div className="featured-auction">
       Featured Auction
-      <AuctionItem />
+      <AuctionItem name="featured" />
     </div>
   </div>
 )
