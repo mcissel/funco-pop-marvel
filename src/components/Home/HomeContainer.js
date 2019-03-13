@@ -3,6 +3,7 @@ import fetchJsonp from 'fetch-jsonp'
 import { connect } from 'react-redux'
 
 import {setAuctions, setFeaturedAuction} from '../../redux/auction/auctionActions';
+import {sortedByPriceHighest, sortedByPriceLowest, sortedAlphabetical} from '../../redux/auction/auctionSelectors';
 import HomeView from './HomeView'
 import {parseResponse} from './helpers'
 
@@ -42,16 +43,21 @@ class Home extends React.Component {
   }
 
   render() {
-    const {} = this.props
-    return (
-      <HomeView />
-    )
+    const { featuredAuctionId, auctions } = this.props
+    const viewProps = { featuredAuctionId, auctions }
+
+    return <HomeView {...viewProps} />
   }
 }
 
 const mapStateToProps = state => ({
   auctions: state.auctions.auctions,
   featuredAuctionId: state.auctions.featured,
+  sortedBy: {
+    alphabetical: sortedAlphabetical(state),
+    priceAscending: sortedByPriceLowest(state),
+    priceDescending: sortedByPriceHighest(state),
+  }
 })
 
 export default connect(mapStateToProps)(Home)
