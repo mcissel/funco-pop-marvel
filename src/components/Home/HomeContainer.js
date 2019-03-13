@@ -28,7 +28,10 @@ class Home extends React.Component {
 
   render() {
     const { featuredAuction, additionalAuctions } = this.props
-    const viewProps = { featuredAuction, additionalAuctions }
+    const viewProps = {
+      featured: featuredAuction,
+      additional: additionalAuctions,
+    }
 
     console.log(`%cview≥`, 'background:#ffd040; color:#222;', viewProps)
     return <HomeView {...viewProps} />
