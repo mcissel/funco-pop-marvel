@@ -1,7 +1,9 @@
 import React from 'react'
 import fetchJsonp from 'fetch-jsonp'
-import HomeView from './HomeView'
+import { connect } from 'react-redux'
 
+import {setAuctions, setFeaturedAuction} from '../../redux/auction/auctionActions';
+import HomeView from './HomeView'
 import {parseResponse} from './helpers'
 
 const appId = process.env.REACT_APP_EBAY_APP_ID;
@@ -22,12 +24,14 @@ class Home extends React.Component {
     requestUrl += `&keywords=${keywords.join('%20')}`;
 
     fetchJsonp(requestUrl)
-      .then(function(response) {
+      .then((response) => {
         return response.json()
-      }).then(function(json) {
+      }).then((json) => {
         const items = parseResponse(json);
         console.log(`%citems`, 'background:#bada55; color:#222;', items)
         window.ti = items;
+        this.props.dispatch(setAuctions(items))
+        this.props.dispatch(setFeaturedAuction(items[0].itemId))
       }).catch(function(error) {
         console.log('parsing failed', error)
       })
@@ -45,4 +49,9 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+const mapStateToProps = state => ({
+  auctions: state.auctions.auctions,
+  featuredAuctionId: state.auctions.featured,
+})
+
+export default connect(mapStateToProps)(Home)

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension'
+
 import { Provider } from 'react-redux'
 import { Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
@@ -13,7 +15,7 @@ import './App.css';
 require('dotenv').config();
 
 const history = createBrowserHistory();
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeWithDevTools());
 
 class App extends Component {
   render() {
