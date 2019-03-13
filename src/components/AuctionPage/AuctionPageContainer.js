@@ -1,28 +1,25 @@
 import React from 'react'
-
+import { connect } from 'react-redux'
+import AuctionView from "./AuctionPageView";
 
 class AuctionPageContainer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
-
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-
-  }
-
   render() {
-    const {} = this.props
+    const { auctions, match } = this.props
+    console.log(`%cthis`, 'background:#bada55; color:#222;', match, auctions)
+    const auctionId  = match.params.id
+
+    const auction = auctions.find(a=> a.itemId === auctionId)
+
+    console.log(`%cauctoin`, 'background:#ffd040; color:#222;', auction)
 
     return (
-      <div className="auction">
-        howdy this is an auction
-      </div>
+      <AuctionView {...auction} />
     )
   }
 }
 
-export default AuctionPageContainer
+const mapStateToProps = state => ({
+  auctions: state.auctions.auctions,
+})
+
+export default connect(mapStateToProps)(AuctionPageContainer)
