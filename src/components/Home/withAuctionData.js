@@ -5,7 +5,7 @@ import {parseResponse} from "./helpers";
 const appId = process.env.REACT_APP_EBAY_APP_ID;
 const keywords = ['funco', 'pop', 'marvel'];
 
-const withAuctionData = WrappedComponent => {
+const withAuctionData = count => WrappedComponent => {
   class AuctionProvider extends React.Component {
     state = {
       auctions: null,
@@ -28,7 +28,7 @@ const withAuctionData = WrappedComponent => {
           console.log(`%citems`, 'background:#bada55; color:#222;', items)
           window.ti = items;
           this.setState({
-            auctions: items,
+            auctions: items.slice(0, count),
             featuredAuctionId: items[0].itemId,
           })
         }).catch(function(error) {
@@ -38,7 +38,7 @@ const withAuctionData = WrappedComponent => {
 
     render() {
       const { auctions, featuredAuctionId } = this.state
-
+      console.log(`%cstate`, 'background:#ffd040; color:#222;', this.state)
       return (
         <WrappedComponent
           auctions={auctions}

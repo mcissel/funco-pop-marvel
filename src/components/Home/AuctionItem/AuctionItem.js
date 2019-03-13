@@ -1,15 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-const AuctionItem = ({ name }) => (
+const AuctionItem = ({ title, location, galleryURL }) => (
   <div className='auction-item'>
-    {name}
+    <h3>{title}</h3>
+    <p>{location}</p>
+    <img src={galleryURL} />
   </div>
 )
 
-
-AuctionItem.propTypes = {
-  name: PropTypes.string.isRequired,
-}
 
 export default AuctionItem

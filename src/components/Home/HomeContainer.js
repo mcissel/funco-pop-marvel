@@ -4,7 +4,13 @@ import { connect } from 'react-redux'
 
 import withAuctionData from './withAuctionData'
 import {setAuctions, setFeaturedAuction} from '../../redux/auction/auctionActions';
-import {sortedByPriceHighest, sortedByPriceLowest, sortedAlphabetical} from '../../redux/auction/auctionSelectors';
+import {
+  sortedByPriceHighest,
+  sortedByPriceLowest,
+  sortedAlphabetical,
+  getFeaturedAuction,
+  getAdditionalAuctions,
+} from '../../redux/auction/auctionSelectors';
 import HomeView from './HomeView'
 
 
@@ -21,16 +27,17 @@ class Home extends React.Component {
   }
 
   render() {
-    const { featuredAuctionId, auctions } = this.props
-    const viewProps = { featuredAuctionId, auctions }
+    const { featuredAuction, additionalAuctions } = this.props
+    const viewProps = { featuredAuction, additionalAuctions }
 
+    console.log(`%cview≥`, 'background:#ffd040; color:#222;', viewProps)
     return <HomeView {...viewProps} />
   }
 }
 
 const mapStateToProps = state => ({
-  auctions: state.auctions.auctions,
-  featuredAuctionId: state.auctions.featured,
+  featuredAuction: getFeaturedAuction(state),
+  additionalAuctions: getAdditionalAuctions(state),
   sortedBy: {
     alphabetical: sortedAlphabetical(state),
     priceAscending: sortedByPriceLowest(state),
@@ -39,6 +46,6 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
-  withAuctionData,
+  withAuctionData(11),
   connect(mapStateToProps),
 )(Home)
