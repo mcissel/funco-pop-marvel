@@ -9,5 +9,4 @@ const AuctionItem = ({ itemId, title, location, galleryURL }) => (
   </Link>
 )
 
-
 export default AuctionItem

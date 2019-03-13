@@ -12,9 +12,14 @@ import {
   getAdditionalAuctions,
 } from '../../redux/auction/auctionSelectors';
 import HomeView from './HomeView'
+import {createConnect} from "react-redux/es/connect/connect";
 
 
 class Home extends React.Component {
+  state = {
+    additional: null
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { auctions, featuredAuctionId, dispatch } = this.props
     if (auctions !== prevProps.auctions) {
@@ -26,12 +31,36 @@ class Home extends React.Component {
     }
   }
 
+  sortByCheapest = () => {
+    this.setState({
+      additional: this.props.sortedBy.priceAscending
+    })
+  }
+  sortByMostExpensive = () => {
+    this.setState({
+      additional: this.props.sortedBy.priceDescending
+    })
+  }
+  sortAlphabetical = () => {
+    this.setState({
+      additional: this.props.sortedBy.alphabetical
+    })
+  }
+
+
   render() {
     const { featuredAuction, additionalAuctions } = this.props
+    const { additional } = this.state;
+
     const viewProps = {
       featured: featuredAuction,
-      additional: additionalAuctions,
+      additional: additional || additionalAuctions,
+      sortByCheapest: this.sortByCheapest,
+      sortByMostExpensive: this.sortByMostExpensive,
+      sortAlphabetical: this.sortAlphabetical,
     }
+
+    console.log(`%cthis`, 'background:pink;', this.state)
 
     console.log(`%cview≥`, 'background:#ffd040; color:#222;', viewProps)
     return <HomeView {...viewProps} />
