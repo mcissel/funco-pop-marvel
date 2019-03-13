@@ -2,6 +2,8 @@ import React from 'react'
 import fetchJsonp from 'fetch-jsonp'
 import HomeView from './HomeView'
 
+import {parseResponse} from './helpers'
+
 const appId = process.env.REACT_APP_EBAY_APP_ID;
 const keywords = ['funco', 'pop', 'marvel'];
 
@@ -23,9 +25,11 @@ class Home extends React.Component {
       .then(function(response) {
         return response.json()
       }).then(function(json) {
-        console.log('parsed json', json)
-      }).catch(function(ex) {
-        console.log('parsing failed', ex)
+        const items = parseResponse(json);
+        console.log(`%citems`, 'background:#bada55; color:#222;', items)
+        window.ti = items;
+      }).catch(function(error) {
+        console.log('parsing failed', error)
       })
   }
 
